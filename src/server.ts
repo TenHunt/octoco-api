@@ -1,13 +1,12 @@
 import express from 'express';
+import bookRoutes from './routes/book.routes.js';
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use(express.json());
+app.use('/api/books', bookRoutes);
 
-app.listen(3000, () => {
-    console.log('Bookstore API listening on port 3000');
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Bookstore API listening on port ${PORT}`);
 });
-
-export default app;
