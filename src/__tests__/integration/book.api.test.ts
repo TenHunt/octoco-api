@@ -1,11 +1,9 @@
-// src/__tests__/integration/book.api.test.ts
 import request from 'supertest';
 import express from 'express';
 import { BookController } from '../../controllers/book.controller.js';
 import { BookService } from '../../services/book.service.js';
 import { BookRepository } from '../../repositories/book.repository.js';
 
-// In-memory instances for testing
 const repo = new BookRepository();
 const service = new BookService(repo);
 const controller = new BookController(service);
@@ -13,7 +11,7 @@ const controller = new BookController(service);
 const app = express();
 app.use(express.json());
 
-// Register routes correctly (using ! to assert non-null)
+// Register routes correctly
 app.post('/api/books', controller.create[0]!, controller.create[1]!);
 app.get('/api/books', controller.getAll);
 app.get('/api/books/discounted-price', controller.getDiscountedPrice[0]!, controller.getDiscountedPrice[1]!);
@@ -27,7 +25,6 @@ describe('Bookstore API - Integration', () => {
 
   // Clear the in-memory repo before each test
   beforeEach(() => {
-    // Direct access to private property — only okay in tests
     (repo as any).books = [];
   });
 
@@ -86,7 +83,6 @@ describe('Bookstore API - Integration', () => {
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBeGreaterThan(0);
-    // No discount field anymore → test real fields instead
     expect(res.body[0]).toHaveProperty('id');
     expect(res.body[0]).toHaveProperty('title');
     expect(res.body[0]).toHaveProperty('price');

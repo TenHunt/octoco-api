@@ -1,4 +1,3 @@
-// src/__tests__/unit/book.service.test.ts
 import { BookService } from '../../services/book.service.js';
 import { BookRepository } from '../../repositories/book.repository.js';
 
@@ -24,7 +23,6 @@ describe('BookService', () => {
     expect(book.price).toBe(99.99);
     expect(book.quantity).toBe(5);
     expect(book.id).toBeDefined();
-    // No discount field → correct and clean
     expect(book).not.toHaveProperty('discount');
   });
 

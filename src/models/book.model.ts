@@ -6,5 +6,5 @@ export interface Book {
     genre: string;
     price?: number;
     quantity: number; // Quantity in stock
-    discount?: number;   // Calculated later
+    discount?: number;   // Percentage, calculated later
 }

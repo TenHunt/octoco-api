@@ -1,4 +1,3 @@
-// src/services/book.service.ts
 import type { Book } from '../models/book.model.js';
 import { BookRepository } from '../repositories/book.repository.js';
 import type { CreateBookDto } from '../dtos/createbook.dto.js';
@@ -28,7 +27,6 @@ export class BookService {
     return this.repo.delete(id);
   }
 
-  // Only this method cares about discounts — and only when explicitly asked
   calculateDiscountedPrice(genre: string, discountPercent: number): number {
     const books = this.repo.findAll();
     const matching = books.filter(b => b.genre?.toLowerCase() === genre.toLowerCase());

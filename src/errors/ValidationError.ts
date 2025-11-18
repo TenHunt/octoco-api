@@ -1,4 +1,3 @@
-// src/errors/ValidationError.ts
 export class ValidationError extends Error {
   public readonly errors: Record<string, string[]>;
 

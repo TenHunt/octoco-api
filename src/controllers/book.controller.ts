@@ -1,16 +1,9 @@
-// controllers/book.controller.ts — SIMPLIFIED & WORKING
-import type { Request, Response, NextFunction, RequestHandler } from 'express';
-import type { ParamsDictionary, Query } from 'express-serve-static-core';
+import type { RequestHandler } from 'express';
 import { BookService } from '../services/book.service.js';
 import { ValidationError } from '../errors/ValidationError.js';
 import { z } from 'zod';
-//import { CreateBookDto, UpdateBookDto, DiscountPriceQuery } from '../dtos'; // your DTOs
-import type { CreateBookDto } from '../dtos/createbook.dto.js';
-import type { UpdateBookDto } from '../dtos/updatebook.dto.js';
 import type { DiscountPriceQueryDto } from '../dtos/discount-price.dto.js';
 
-
-// Zod schemas (keep as-is)
 const createBookSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200),
   author: z.string().min(1, 'Author is required').max(100),
@@ -37,7 +30,6 @@ const discountPriceQuerySchema = z.object({
 export class BookController {
   constructor(private service: BookService) {}
 
-  // CREATE — SIMPLE TUPLE, NO CAST
   create: RequestHandler[] = [
     (req, _res, next) => {
       const result = createBookSchema.safeParse(req.body);
@@ -53,7 +45,6 @@ export class BookController {
     },
   ];
 
-  // UPDATE — SIMPLE TUPLE, NO CAST
   update: RequestHandler[] = [
     (req, _res, next) => {
       const result = updateBookSchema.safeParse(req.body);
@@ -74,12 +65,10 @@ export class BookController {
     },
   ];
 
-  // READ ALL
   getAll: RequestHandler = (_req, res) => {
     res.json(this.service.getAll());
   };
 
-  // READ ONE
   getById: RequestHandler = (req, res) => {
     const { id } = req.params;
     if (!id) {
@@ -90,7 +79,6 @@ export class BookController {
     res.json(book);
   };
 
-  // GET BOOKS BY GENRE → /api/books/genre/Fiction
   getByGenre: RequestHandler = (req, res) => {
     const { genre } = req.params;
 
@@ -106,7 +94,6 @@ export class BookController {
     res.json(filtered);
   };
 
-  // DELETE
   delete: RequestHandler = (req, res) => {
     const { id } = req.params;
     if (!id) {
@@ -122,7 +109,6 @@ export class BookController {
       if (!result.success) {
         return next(new ValidationError(result.error.flatten().fieldErrors));
       }
-      // Just attach the validated data somewhere safe
       (req as any).validatedQuery = result.data;
       next();
     },
