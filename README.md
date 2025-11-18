@@ -33,4 +33,4 @@
 `irm http://localhost:3000/api/books/genre/Fiction`
 
 ### Get discounted price for a genre (GET /api/books/discounted-price)
-`irm "http://localhost:3000/api/books/discounted-price?genre=Fiction&discount=20"`
+`irm "http://localhost:3000/api/books/discounted-price?genre=Fiction&discount=20" | ConvertTo-Json`
