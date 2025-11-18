@@ -4,8 +4,7 @@ export interface Book {
     author: string;
     isbn: string;
     genre: string;
-    purchPrice: number; // Price from supplier
-    sellPrice: number; // Price to customer before discounts
+    price?: number;
     quantity: number; // Quantity in stock
-    discount?: number;   // Calculated later
+    discount?: number;   // Percentage, calculated later
 }
